@@ -1,5 +1,6 @@
 package spring.java.learning;
 
+import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import lombok.extern.slf4j.Slf4j;
 import spring.java.learning.data.Bar;
 import spring.java.learning.data.Foo;
+import spring.java.learning.scope.DoubletoneScope;
 
 @Slf4j
 @Configuration
@@ -20,8 +22,17 @@ public class ScopeConfiguration {
         return new Foo();
     }
 
-    // @Bean
-    // public Bar bar(){
-    //     return new Bar();
-    // }
+    @Bean
+    public CustomScopeConfigurer CustomScopeConfigurer(){
+        CustomScopeConfigurer configurer = new CustomScopeConfigurer();
+        configurer.addScope("doubleton", new DoubletoneScope());
+        return configurer;
+    }
+
+    @Bean
+    @Scope("doubleton")
+    public Bar bar(){
+        log.info("Create new bar");
+        return new Bar();
+    }
 }
