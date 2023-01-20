@@ -17,13 +17,13 @@ public class ComponentTest {
     private ConfigurableApplicationContext applicationContext;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         applicationContext = new AnnotationConfigApplicationContext(ComponentConfiguration.class);
         applicationContext.registerShutdownHook();
     }
 
     @Test
-    void testService(){
+    void testService() {
         ProductService productService1 = applicationContext.getBean(ProductService.class);
         ProductService productService2 = applicationContext.getBean("productService", ProductService.class);
 
@@ -31,7 +31,7 @@ public class ComponentTest {
     }
 
     @Test
-    void testContructorDependencyInjection(){
+    void testContructorDependencyInjection() {
         ProductService productService = applicationContext.getBean(ProductService.class);
         ProductRepository productRepository = applicationContext.getBean(ProductRepository.class);
 
@@ -39,7 +39,7 @@ public class ComponentTest {
     }
 
     @Test
-    void tesSetterDependencyInjection(){
+    void tesSetterDependencyInjection() {
         CategoryService categoryService = applicationContext.getBean(CategoryService.class);
         CategoryRepository categoryRepository = applicationContext.getBean(CategoryRepository.class);
 
@@ -47,10 +47,25 @@ public class ComponentTest {
     }
 
     @Test
-    void testFieldDependencyInjection(){
+    void testFieldDependencyInjection() {
+
         CustomerService customerService = applicationContext.getBean(CustomerService.class);
         CustomerRepository customerRepository = applicationContext.getBean(CustomerRepository.class);
 
         Assertions.assertSame(customerService.getCustomerRepository(), customerRepository);
+    }
+
+    @Test
+    void testQualifier() {
+
+        CustomerService customerService = applicationContext.getBean(CustomerService.class);
+
+        CustomerRepository normalCustomerRepository = applicationContext.getBean("normalCustomerRepository",
+                CustomerRepository.class);
+        CustomerRepository premiumCustomerRepository = applicationContext.getBean("premiumCustomerRepository",
+                CustomerRepository.class);
+
+        Assertions.assertSame(normalCustomerRepository, customerService.getNormalCustomerRepository());
+        Assertions.assertSame(premiumCustomerRepository, customerService.getPremiumCustomerRepository());
     }
 }
