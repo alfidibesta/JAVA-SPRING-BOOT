@@ -2,6 +2,7 @@ package spring.java.learning.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import spring.java.learning.data.Foo;
 
@@ -9,7 +10,16 @@ import spring.java.learning.data.Foo;
 public class FooConfiguration {
 
     @Bean
+    @Primary
     public Foo foo(){
+        return new Foo();
+    }
+    @Bean
+    public Foo foo2(){
+        return new Foo();
+    }
+    @Bean
+    public Foo foo3(){
         return new Foo();
     }
 }
