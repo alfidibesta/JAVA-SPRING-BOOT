@@ -16,7 +16,6 @@ public class ScopeTest {
     @BeforeEach
     void setUp(){
         applicationContext = new AnnotationConfigApplicationContext(ScopeConfiguration.class);
-
     }
 
     @Test
