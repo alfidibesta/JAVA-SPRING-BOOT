@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.core.Ordered;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import spring.java.learning.aware.IdAware;
 
 @Slf4j
 @Component
-public class IdGeneratorBeanPostProcessor implements BeanPostProcessor{
+public class IdGeneratorBeanPostProcessor implements BeanPostProcessor, Ordered{
 
     @Override
     @Nullable
@@ -24,5 +25,11 @@ public class IdGeneratorBeanPostProcessor implements BeanPostProcessor{
             idAware.setId(UUID.randomUUID().toString());
         }
         return bean;
+    }
+
+    @Override
+    public int getOrder() {
+        
+        return 1;
     }
 }
