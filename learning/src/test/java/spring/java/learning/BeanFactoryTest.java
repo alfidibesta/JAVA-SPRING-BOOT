@@ -16,14 +16,14 @@ public class BeanFactoryTest {
     private ConfigurableApplicationContext applicationContext;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         applicationContext = new AnnotationConfigApplicationContext(ScanConfiguration.class);
         applicationContext.registerShutdownHook();
 
     }
 
     @Test
-    void testBeanFactory(){
+    void testBeanFactory() {
         ObjectProvider<Foo> fooObjectProvider = applicationContext.getBeanProvider(Foo.class);
         List<Foo> fooList = fooObjectProvider.stream().collect(Collectors.toList());
 

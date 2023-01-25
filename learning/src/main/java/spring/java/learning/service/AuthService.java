@@ -6,11 +6,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import lombok.Getter;
+
 @Component
 public class AuthService implements ApplicationContextAware, BeanNameAware{
 
+    @Getter
     private String beanName;
 
+    @Getter
     private ApplicationContext applicationContext;
 
     @Override

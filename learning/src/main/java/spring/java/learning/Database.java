@@ -1,7 +1,5 @@
 package spring.java.learning;
 
-import javax.xml.crypto.Data;
-
 public class Database {
     private static Database database;
     public static Database getInstance(){
